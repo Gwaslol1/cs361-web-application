@@ -1,0 +1,294 @@
+.App {
+  text-align: center;
+  height: 100vh;
+  background-color: white;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.Site-title {
+  font-size: 40px;
+}
+
+.Link-span {
+  position: relative;
+  right: 800px;
+  bottom: 40px;
+  padding: 10px;
+}
+
+.App-link:link, .App-link:visited {
+  background-color: #291768;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.App-link:hover, .App-link:active {
+  background-color: rgb(93, 21, 226);
+}
+
+.Navigation {
+  border: 5px solid black;
+  color: white;
+  background-color: #291768;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.itemsection-container {
+  display: grid;
+  grid-template-columns: 500px 500px 500px;
+  grid-template-rows: 300px 300px;
+  grid-gap: 10px;
+  padding-left: 300px;
+  text-align: center;
+}
+
+.item-container {
+  display: grid;
+  grid-template-columns: 500px 500px 500px;
+  grid-template-rows: 300px 300px;
+  grid-gap: 10px;
+  text-align: center;
+}
+
+#section0 {
+  grid-row: 1 / 2;
+  grid-column: 1 / 4;
+}
+
+#section1 {
+  grid-row: 2 / 3;
+  grid-column: 1 / 4;
+}
+
+#image {
+  width: 200px;
+  height: 200px;
+}
+
+.item {
+  height: 300px;
+  width: 300px;
+  border: 5px solid black;
+  box-shadow: 0px 5px 10px 0px rgba(0,0,0,3);
+}
+
+.item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 20px 2px rgba(0,0,0,1.5);
+}
+
+.item-quantity {
+  position: relative;
+  right: 70px;
+  bottom: 45px;
+  font-size: 40px;
+}
+
+.item-plusicon {
+  cursor: pointer;
+  position: relative;
+  right: 75px;
+  bottom: 41px;
+  font-size: 30px;
+  user-select: none;
+}
+
+.item-minusicon {
+  cursor: pointer;
+  position: relative;
+  right: 85px;
+  bottom: 40px;
+  font-size: 30px;
+  user-select: none;
+}
+
+.item-quantity-input {
+  display: block;
+  position: relative;
+  bottom: 85px;
+  left: 200px;
+  width: 60px;
+  height: 30px;
+  font-size: 30px;
+}
+
+.Tooltip-icon {
+  position: relative;
+  width: 1px;
+  bottom: 113px;
+  left: 263px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.Tooltip-icon .Tooltip-text {
+  visibility: hidden;
+  font-size: 15px;
+  background-color: #291768;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.Tooltip-icon:hover .Tooltip-text {
+  visibility: visible;
+}
+
+ul {
+  list-style-type: none
+}
+
+a {
+  cursor: pointer;
+}
+
+.Payment:hover, .Payment:active {
+  background-color: rgb(93, 21, 226);
+}
+
+.Payment {
+  position: absolute;
+  right: 50px;
+  top: 60px;
+  background-color: #291768;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.Payment a label {
+  display: none;
+}
+
+.Payment:hover label {
+  display: block;
+  font-weight: 1000;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.Order-ShoppingCart {
+  position: absolute; 
+  color: white;
+  font-size: 30px;
+  top: 70px;
+  right: 250px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#payment-orderlist {
+  padding-right: 40px;
+}
+
+#form-cardselect {
+  position: relative;
+  font-size: 20px;
+  right: 105px;
+  width: 176px;
+}
+
+#form-cnumberlabel {
+  position: relative;
+  right: 147px;
+  top: 5px;
+}
+
+#form-cnumber {
+  position: relative;
+  right: 105px;
+  top: 5px;
+}
+
+#form-snumberexpdatelabel {
+  position: relative;
+  bottom: 55px;
+  left: 121px;
+}
+
+#form-expdate {
+  position: relative;
+  bottom: 55px;
+  left: 42px;
+  width: 60px;
+}
+
+#form-snumber {
+  position: relative;
+  bottom: 35px;
+  left: 170px;
+  width: 40px;
+}
+
+#form-fname {
+  position: relative;
+  bottom: 40px;
+  right: 105px;
+}
+
+#form-fnamelabel {
+  position: relative;
+  bottom: 40px;
+  right: 155px;
+}
+
+#form-lname {
+  position: relative;
+  bottom: 79px;
+  left: 100px;
+}
+
+#form-lnamelabel {
+  position: relative;
+  bottom: 80px;
+  left: 49px;
+}
+
+#form-pnumber {
+  position: relative;
+  bottom: 75px;
+  right: 62px;
+}
+
+#form-pnumberlabel {
+  position: relative;
+  bottom: 70px;
+  right: 142px;
+}
+
+#form-submitbutton {
+  position: relative;
+  right: 90px;
+  background-color: #291768;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#form-submitbutton:hover {
+  background-color: rgb(93, 21, 226);
+}
+
+.OrderListEntry {
+  font-size: 20px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
