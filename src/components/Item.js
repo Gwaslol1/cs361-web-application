@@ -107,6 +107,11 @@ function Item( {menuItems, setMenuItems, itemIndex, sectionIndex, purchasedItems
 
     function handleOnChange(e)
     {
+        if(Number(e.target.value < 0)) 
+        {
+            e.target.value = 0;
+            return;
+        }
         const updatedMenuItems = menuItems.map((itemsection, i) => {
             if(i === sectionIndex)
             {
@@ -168,7 +173,7 @@ function Item( {menuItems, setMenuItems, itemIndex, sectionIndex, purchasedItems
             <label className='item-quantity'>x{menuItems[sectionIndex][itemIndex]["quantity"]}</label>
             <GoArrowUp className='item-plusicon' onClick={() => {handleOnPlusClick(itemIndex, sectionIndex)}}>Select</GoArrowUp>
             <GoArrowDown className='item-minusicon' onClick={() => {handleOnMinusClick(itemIndex, sectionIndex)}}>Select</GoArrowDown>
-            <input className='item-quantity-input' type='number' min='0' value={menuItems[sectionIndex][itemIndex]["quantity"]} onChange={handleOnChange}></input>
+            <input className='item-quantity-input' type='number' placeholder={menuItems[sectionIndex][itemIndex]["quantity"]} onChange={handleOnChange}></input>
             <div className='Tooltip-icon'>
                 <GoUnverified></GoUnverified>
                 <span className='Tooltip-text'>Manually enter large quantities</span>

@@ -179,17 +179,49 @@ a {
   cursor: pointer;
 }
 
-.Order-ShoppingCart {
+.Order-ShoppingCart-Container {
   position: absolute; 
-  color: white;
-  font-size: 30px;
+  display: inline-block;
+  color: black;
   top: 70px;
   right: 250px;
   cursor: pointer;
   user-select: none;
 }
 
-#payment-orderlist {
+#Order-ShoppingCart {
+  color: white;
+  font-size: 30px;
+}
+
+.Order-ShoppingCart-Container table {
+  position: absolute;
+  right: 0px;
+  width: 250px;
+  display: none;
+  border: solid 3px black;
+  padding: 10px;
+}
+
+.Order-ShoppingCart-Container table tbody tr td {
+  border-bottom: solid 3px black;
+  padding: 10px;
+}
+
+.Order-ShoppingCart-Container table tfoot tr td {
+  padding-top: 10px;
+}
+
+.Order-ShoppingCart-Container:hover table {
+  display: block;
+  background-color: white;
+  font-weight: 1000;
+  text-align: left;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#payment-itemlist {
   padding-right: 40px;
 }
 
@@ -285,6 +317,45 @@ a {
 
 .OrderListEntry {
   font-size: 20px;
+}
+
+#receipt-date {
+  position: relative;
+  width: 100px;
+  left: 738px;
+}
+
+#receipt-time {
+  position: relative;
+  width: 100px;
+  left: 1080px;
+  bottom: 40px;
+}
+
+#receipt-line {
+  position: relative;
+  bottom: 50px;
+  left: 7px;
+}
+
+#receipt-itemtable {
+  position: relative;
+  width: 400px;
+  left: 760px;
+  bottom: 70px;
+  text-align: left;
+  border-spacing: 10px;
+}
+
+#receipttable-itemhead {
+  width: 290px;
+}
+
+#receipt-misccontainer {
+  position: relative;
+  left: 770px;
+  bottom: 50px;
+  text-align: left;
 }
 
 input::-webkit-outer-spin-button,

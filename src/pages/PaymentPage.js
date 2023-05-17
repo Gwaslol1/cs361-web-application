@@ -1,14 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import ReceiptEntry from '../components/ReceiptEntry';
+import { useNavigate, useLocation } from 'react-router-dom';
+import OrderEntry from '../components/OrderEntry';
 
 function PaymentPage()
 {
     const location = useLocation();
     const navigate = useNavigate();
-    const [formValues, setFormValues] = useState({card: '', fname: '', lname: '', cnumber: '**** **** **** ****', snumber: 'CVC', expdate: 'MM / YY', pnumber: '*** *** ****'});
+    const [formValues, setFormValues] = useState({cissuer: '', fname: '', lname: '', cnumber: '', snumber: '', expdate: '', pnumber: ''});
 
     function calculateTotalPrice()
     {
@@ -25,7 +24,7 @@ function PaymentPage()
     {
         setFormValues({
             ...formValues,
-            card: e.target.value
+            cissuer: e.target.value
         });
     }
 
@@ -47,14 +46,24 @@ function PaymentPage()
 
     function handleCnumberChange(e)
     {
+        if (/[a-zA-Z]/.test(e.target.value))
+        {
+            e.target.value = ''
+        }
+        
         setFormValues({
-            ...formValues,
-            cnumber: e.target.value
+                ...formValues,
+                cnumber: e.target.value
         });
     }
 
     function handleSnumberChange(e)
     {
+        if (/[a-zA-Z]/.test(e.target.value))
+        {
+            e.target.value = ''
+        }
+
         setFormValues({
             ...formValues,
             snumber: e.target.value
@@ -63,6 +72,11 @@ function PaymentPage()
 
     function handleExpdateChange(e)
     {
+        if (/[a-zA-Z]/.test(e.target.value))
+        {
+            e.target.value = ''
+        }
+
         setFormValues({
             ...formValues,
             expdate: e.target.value
@@ -71,16 +85,40 @@ function PaymentPage()
 
     function handlePNumberChange(e)
     {
+        if (/[a-zA-Z]/.test(e.target.value))
+        {
+            e.target.value = ''
+        }
+
         setFormValues({
             ...formValues,
             pnumber: e.target.value
         });
     }
 
-    function handleSubmit(e)
+    async function handleSubmit(e)
     {
         e.preventDefault();
-        navigate('/receipt');
+        const formValuesToSend = {cissuer: formValues['cissuer'], cnumber: formValues['cnumber'], expdate: formValues['expdate']}
+
+        fetch('http://localhost:5000/payment', {
+            method: 'POST',
+            body: JSON.stringify(formValuesToSend),
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+        })
+            .then((response) => response.text())
+            .then((text) => {
+                if(text === "Valid.") {
+                    navigate('/receipt', {state: {purchased: location.state, total: calculateTotalPrice(), form: formValues}});
+                }
+
+                else {
+                    alert("Card Declined.");
+                    console.error(`Reason for card decline: ${text}`);
+                }
+            });
     }
     
     return (
@@ -88,31 +126,31 @@ function PaymentPage()
             <h1 id='payment-header'>Fill in your payment information below</h1>
             <div id='paymentform-container'>
                 <form onSubmit={handleSubmit}>
-                    <select id='form-cardselect' onChange={handleSelectChange} name='cards' required>
-                        <option value="visa">Visa</option>
-                        <option value="mastercard">Mastercard</option>
-                        <option value="express">American Express</option>
-                        <option value="discover">Discover</option>
+                    <select id='form-cardselect' onChange={handleSelectChange} name='cards' defaultValue="Visa" required>
+                        <option value="Visa">Visa</option>
+                        <option value="Mastercard">Mastercard</option>
+                        <option value="AmericanExpress">American Express</option>
+                        <option value="Discover">Discover</option>
                     </select>
                     <br></br>
                     <label id='form-cnumberlabel'>Card number</label><br></br>
-                    <input type="text" id="form-cnumber" placeholder={formValues.cnumber} onChange={handleCnumberChange} required></input><br></br>
+                    <input type="text" id="form-cnumber" placeholder="**** **** **** ****" onChange={handleCnumberChange} required></input><br></br>
                     <label id='form-snumberexpdatelabel'>Expiration date & security code</label><br></br>
-                    <input type="text" id="form-snumber" placeholder={formValues.snumber} onChange={handleSnumberChange} required></input><br></br>
-                    <input type="text" id="form-expdate" placeholder={formValues.expdate} onChange={handleExpdateChange} required></input><br></br>
+                    <input type="text" id="form-snumber" placeholder="CVC" onChange={handleSnumberChange} required></input><br></br>
+                    <input type="text" id="form-expdate" placeholder="MM / YY" onChange={handleExpdateChange} required></input><br></br>
                     <label id='form-fnamelabel'>First name</label><br></br>
                     <input type="text" id="form-fname" placeholder={formValues.fname} onChange={handleFirstNameChange} required></input><br></br>
                     <label id='form-lnamelabel'>Last name</label><br></br>
                     <input type="text" id="form-lname" placeholder={formValues.lname} onChange={handleLastNameChange} required></input><br></br>
                     <label id='form-pnumberlabel'>Phone number</label><br></br>
-                    <input type="text" id='form-pnumber' placeholder={formValues.pnumber} onChange={handlePNumberChange} required></input>
+                    <input type="text" id='form-pnumber' placeholder="*** **** ****" onChange={handlePNumberChange} required></input>
                     <button id='form-submitbutton' type='submit'>Pay Now</button>
                 </form>
             </div>
             <h2>Your order at a glance</h2>
-            <ul id='payment-orderlist'>
+            <ul id='payment-itemlist'>
                 {location.state.map((item, i) => (
-                    <ReceiptEntry key={i} name={item["name"]} quantity={item["quantity"]} price={item["price"]}/>
+                    <OrderEntry key={i} name={item["name"]} quantity={item["quantity"]} price={item["price"]}/>
                 ))}
             </ul>
             <h3>Sub-Total: ${calculateTotalPrice()}</h3>

@@ -7,7 +7,18 @@ function OrderPage( {menuItems, setMenuItems, purchasedItems, setPurchasedItems}
 {
     const navigate = useNavigate();
 
-    const toPaymentPage = () => {
+    function calculateTotalPrice()
+    {
+        let totalPrice = 0;
+
+        purchasedItems.forEach((item) => {
+            totalPrice += item["quantity"] * item["price"];
+        })
+
+        return totalPrice;
+    }
+
+    const toPaymentPage = async () => {
         if(purchasedItems.length === 0)
         {
             alert("You have no items in your cart!")
@@ -32,7 +43,28 @@ function OrderPage( {menuItems, setMenuItems, purchasedItems, setPurchasedItems}
                     <label>Order will be saved</label>
                 </a>
             </div>
-            <FaShoppingCart className='Order-ShoppingCart'></FaShoppingCart>
+            <div className='Order-ShoppingCart-Container'>
+                <FaShoppingCart id='Order-ShoppingCart'></FaShoppingCart>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Your Cart</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {purchasedItems.map((item, i) => (
+                            <tr className='CartItems'>
+                                <td key={i}>{item["name"]} x{item["quantity"]}: ${item["price"] * item["quantity"]}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Subtotal: ${calculateTotalPrice()}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     );
 }

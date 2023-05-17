@@ -5,7 +5,7 @@ function HomePage()
 {
     return (
         <div>
-            <h1 id='home-header'>THIS IS THE HEADING FOR THE HOME PAGE</h1>
+            <h1 id='home-header'>Welcome to Pretty Patties!</h1>
         </div>
     );
 }
